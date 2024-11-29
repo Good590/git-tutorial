@@ -2,6 +2,8 @@
 // 每个产品有很多属性，故使用object
 let productsHTML = '';
 
+/* -------------------step2 Generate the HTML------------------------*/
+
 products.forEach((product) => {
   // 累加器模式的运用
   productsHTML += `
@@ -49,12 +51,45 @@ products.forEach((product) => {
         Added
       </div>
 
-      <button class="add-to-cart-button button-primary">
+      <button class="add-to-cart-button button-primary js-add-to-cart
+      " data-product-id="${product.id}">
         Add to Cart
       </button>
     </div>
   `;
-
+// 添加了一个 data- 属性，便于点击时分清是哪个按钮被点
 });
 
+// 将生成的html展示在页面上
 document.querySelector('.js-products-grid').innerHTML = productsHTML;
+
+/* -------------------step3 Make it interactive------------------------*/
+// 不加All属性只会选择相同类名的第一个元素
+document.querySelectorAll('.js-add-to-cart')
+  .forEach((button) => {
+    button.addEventListener('click', () => {
+      // 获取data属性
+      const productId = button.dataset.productId;
+
+      let matchingItem;
+
+      // 如果某个产品已经在购物车存在
+      cart.forEach((item) => {
+        if (productId === item.productId) {
+          matchingItem = item;
+        }
+      });
+
+      if (matchingItem) {
+        matchingItem.quantity += 1;
+      } else {
+        // 加入购物车
+        cart.push({
+          productId: productId,
+          quantity: 1
+        });
+      }
+
+      console.log(cart);
+    });
+  });
