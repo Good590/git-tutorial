@@ -90,6 +90,17 @@ document.querySelectorAll('.js-add-to-cart')
         });
       }
 
-      console.log(cart);
+      let cartQuantity = 0;
+
+      cart.forEach((item) => {
+        cartQuantity += item.quantity;
+      });
+
+      // 修改购物车实际数量为计算后结果
+      document.querySelector('.js-cart-quantity')
+        .innerHTML = cartQuantity;
+
+      // console.log(cartQuantity);
+      // console.log(cart);
     });
   });
