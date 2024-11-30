@@ -1,4 +1,5 @@
 import { cart } from "../data/cart.js";
+import { products } from "../data/products.js";
 
 // 有一系列产品，故使用array
 // 每个产品有很多属性，故使用object
