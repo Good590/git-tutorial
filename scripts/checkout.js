@@ -1,4 +1,4 @@
-import {cart} from '../data/cart.js';
+import {cart, removeFromCart} from '../data/cart.js';
 import { products } from '../data/products.js';
 import { formatCurrency } from './utils/money.js';
 
@@ -43,7 +43,7 @@ cart.forEach((cartItem) => {
             <span class="update-quantity-link link-primary">
               Update
             </span>
-            <span class="delete-quantity-link link-primary">
+            <span class="delete-quantity-link link-primary js-delete-link" data-product-id="${matchingProduct.id}">
               Delete
             </span>
           </div>
@@ -99,5 +99,18 @@ cart.forEach((cartItem) => {
 
 });
 
+// 生成页面
 document.querySelector('.js-order-summary')
   .innerHTML = cartSummaryHTML;
+
+// 实现删除和更新的功能 添加监听器
+document.querySelectorAll('.js-delete-link')
+  .forEach((link) => {
+    link.addEventListener('click', () => {
+      // 实现步骤 1.从购物车里删了 2.更新HTML
+      // 获取数据属性以鉴别是哪个按钮被点了
+      const productId = link.dataset.productId;
+      removeFromCart(productId);
+      console.log(cart);
+    })
+  });
