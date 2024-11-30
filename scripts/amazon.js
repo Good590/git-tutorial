@@ -1,4 +1,4 @@
-import { cart } from "../data/cart.js";
+import { cart, addToCart } from "../data/cart.js";
 import { products } from "../data/products.js";
 
 // 有一系列产品，故使用array
@@ -63,47 +63,38 @@ products.forEach((product) => {
 // 添加了一个 data- 属性，便于点击时分清是哪个按钮被点
 });
 
+
+
 // 将生成的html展示在页面上
 document.querySelector('.js-products-grid').innerHTML = productsHTML;
 
 /* -------------------step3 Make it interactive------------------------*/
+
+
+// 将函数化为更小的函数增加代码可读性
+// 该函数用于更新页面，故不用放入cart.js
+function updateCartQuantity() {
+  let cartQuantity = 0;
+
+  cart.forEach((cartItem) => {
+    cartQuantity += cartItem.quantity;
+  });
+
+  // 修改购物车实际数量为计算后结果
+  document.querySelector('.js-cart-quantity')
+    .innerHTML = cartQuantity;
+
+  // console.log(cartQuantity);
+  // console.log(cart);
+}
+
 // 不加All属性只会选择相同类名的第一个元素
 document.querySelectorAll('.js-add-to-cart')
   .forEach((button) => {
     button.addEventListener('click', () => {
       // 获取data属性
       const productId = button.dataset.productId;
-
-      let matchingItem;
-
-      // 如果某个产品已经在购物车存在
-      cart.forEach((item) => {
-        if (productId === item.productId) {
-          matchingItem = item;
-        }
-      });
-
-      if (matchingItem) {
-        matchingItem.quantity += 1;
-      } else {
-        // 加入购物车
-        cart.push({
-          productId: productId,
-          quantity: 1
-        });
-      }
-
-      let cartQuantity = 0;
-
-      cart.forEach((item) => {
-        cartQuantity += item.quantity;
-      });
-
-      // 修改购物车实际数量为计算后结果
-      document.querySelector('.js-cart-quantity')
-        .innerHTML = cartQuantity;
-
-      // console.log(cartQuantity);
-      // console.log(cart);
+      addToCart(productId);
+      updateCartQuantity();
     });
   });
