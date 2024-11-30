@@ -1,3 +1,5 @@
+import { cart } from "../data/cart.js";
+
 // 有一系列产品，故使用array
 // 每个产品有很多属性，故使用object
 let productsHTML = '';
