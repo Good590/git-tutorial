@@ -62,3 +62,21 @@ export function removeFromCart(productId) {
 
   saveToStorage();
 }
+
+export function updateDeliveryOption(productId, deliveryOptionId) {
+  // 1.look through the cart and find the product
+  // 2.upadte the deliveryOptionId of the product
+  let matchingItem;
+
+  // 如果某个产品已经在购物车存在
+  cart.forEach((cartItem) => {
+    if (productId === cartItem.productId) {
+      matchingItem = cartItem;
+    }
+  });
+
+  matchingItem.deliveryOptionId = deliveryOptionId;
+
+  saveToStorage();
+  // 14:50:17
+}
