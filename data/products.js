@@ -1,3 +1,5 @@
+import {formatCurrency} from '../scripts/utils/money.js'
+
 export function getProduct(productId) {
   let matchingProduct;
 
@@ -9,6 +11,33 @@ export function getProduct(productId) {
 
   return matchingProduct;
 }
+
+class Product {
+  id;
+  image;
+  name;
+  rating;
+  priceCents;
+
+  // converting an object into a class(which has some extra features like privacy)
+  constructor(productDeatils) {
+    this.id = productDeatils.id;
+    this.image = productDeatils.image;
+    this.name = productDeatils.name;
+    this.rating = productDeatils.rating;
+    this.priceCents = productDeatils.priceCents;
+  }
+
+  // 利用类的增强添加一些方法用于计算星级和价格
+  getStatsUrl() {
+    return `images/ratings/rating-${this.rating.stars * 10}.png`;
+  }
+
+  getPrice() {
+    return `$${formatCurrency(this.priceCents)}`
+  }
+}
+
 
 export const products = [
   {
@@ -669,4 +698,7 @@ export const products = [
       "mens"
     ]
   }
-];
+].map((productDeatils) => {
+  // map创建一个新数组，无论函数内部返回什么都会进入这个新数组
+  return new Product(productDeatils);
+});
