@@ -1,20 +1,22 @@
 class Cart {
   // 区别于Object
   cartItems;
-  localStorageKey;
+  // 私有属性
+  #localStorageKey;
 
   // 构造函数(创建时自动运行，适合放一些设置)
   constructor(localStorageKey) {
     // this指向生成的对象
-    this.localStorageKey = localStorageKey;
-    this.loadFromStorage();
+    this.#localStorageKey = localStorageKey;
+    this.#loadFromStorage();
 
     // 不能返回任何
   }
 
   // 简写，相当于loadFromStorage: function()
-  loadFromStorage() {
-    this.cartItems = JSON.parse(localStorage.getItem(this.localStorageKey));
+  // 类之外的属性无权从存储中调用加载
+  #loadFromStorage() {
+    this.cartItems = JSON.parse(localStorage.getItem(this.#localStorageKey));
   
     if (!this.cartItems) {
       this.cartItems = [{
@@ -31,7 +33,7 @@ class Cart {
 
   // localstorage只能存string，所以必须要先转换
   saveToStorage() {
-    localStorage.setItem(this.localStorageKey, JSON.stringify(this.cartItems));
+    localStorage.setItem(this.#localStorageKey, JSON.stringify(this.cartItems));
   };
 
   // 将函数化为更小的函数增加代码可读性
@@ -104,6 +106,7 @@ class Cart {
 // 可以直接给构造函数传参
 const cart = new Cart('cart-oop');
 const businessCart = new Cart('cart-business');
+
 
 console.log(cart);
 console.log(businessCart);
