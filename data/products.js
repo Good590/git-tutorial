@@ -65,7 +65,39 @@ class Clothing extends Product{
   }
 }
 
+/*------------------------------------// 使用内置类
+const date = new Date();
+console.log(date);
+console.log(date.toLocaleTimeString());
+*/
 
+/*
+console.log(this);
+
+// undefined 只有在方法内才非空,在常规函数内指向undefined
+const object2 = {
+  a: 2,
+  b: this.a 
+};
+*/
+
+/*
+function logThis() {
+  console.log(this);
+}
+logThis();
+// call（）可以设置this的值为任意
+logThis.call('hello');
+
+this
+const object3 = {
+  method: () => {
+    // 箭头函数内的this也是undefined（因为箭头函数不改变this的值）
+    console.log(this);
+  }
+};
+object3.method();
+*/
 
 export const products = [
   {
