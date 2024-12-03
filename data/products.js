@@ -36,7 +36,35 @@ class Product {
   getPrice() {
     return `$${formatCurrency(this.priceCents)}`
   }
+
+  // 修复对于普通产品没有额外信息导致错误的情况
+  extraInfoHTML() {
+    return '';
+  }
 }
+
+// inheritance(继承：包括全部methods, properties)
+// use inheritance when one class is a more specfic type of another class
+class Clothing extends Product{
+  sizeChartLink;
+
+  constructor(productDeatils) {
+    // 调用父类构造函数
+    super(productDeatils);
+    this.sizeChartLink = productDeatils.sizeChartLink;
+  }
+
+  // 方法覆盖
+  extraInfoHTML() {
+    // super.extraInfoHTML();
+    return `
+      <a href="${this.sizeChartLink}" target="_blank">
+        Size chart
+      </a>
+    `;
+  }
+}
+
 
 
 export const products = [
@@ -699,6 +727,11 @@ export const products = [
     ]
   }
 ].map((productDeatils) => {
+  // 如果有鉴别器属性-type，转换为Clothing类
+  if(productDeatils.type === 'clothing') {
+    return new Clothing(productDeatils);
+  }
+
   // map创建一个新数组，无论函数内部返回什么都会进入这个新数组
   return new Product(productDeatils);
 });

@@ -48,6 +48,8 @@ products.forEach((product) => {
         </select>
       </div>
 
+      ${product.extraInfoHTML()}
+
       <div class="product-spacer"></div>
 
       <div class="added-to-cart">
@@ -62,6 +64,8 @@ products.forEach((product) => {
     </div>
   `;
 // 添加了一个 data- 属性，便于点击时分清是哪个按钮被点
+
+// ${product.extraInfoHTML()}称为多态性，类使用相同方法，类本身确定方法具体的执行
 });
 
 
