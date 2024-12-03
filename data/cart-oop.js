@@ -6,7 +6,7 @@ function Cart(localStorageKey) {
   
     // 简写，相当于loadFromStorage: function()
     loadFromStorage() {
-      this.cartItems = JSON.parse(localStorage.getItem('localStorageKey'));
+      this.cartItems = JSON.parse(localStorage.getItem(localStorageKey));
     
       if (!this.cartItems) {
         this.cartItems = [{
@@ -23,7 +23,7 @@ function Cart(localStorageKey) {
   
     // localstorage只能存string，所以必须要先转换
     saveToStorage() {
-      localStorage.setItem('localStorageKey', JSON.stringify(this.cartItems));
+      localStorage.setItem(localStorageKey, JSON.stringify(this.cartItems));
     },
   
     // 将函数化为更小的函数增加代码可读性
